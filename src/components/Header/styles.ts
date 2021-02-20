@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {theme} from 'src/utils/theme';
 
-const {gray93} = theme.colors;
+const {gray80, gray93} = theme.colors;
 
 export const Container = styled.div`
   min-height: 2rem;
@@ -33,6 +33,14 @@ export const CoinsContainer = styled.div`
   justify-content: center;
   border-radius: 13px;
   padding: 0.3rem 0.5rem;
+  transition: all 100ms ease;
+  &.coins-addition {
+    color: white;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: ${gray80};
+  }
   img {
     margin: 3px 0 0 0.2rem;
     width: 1rem;

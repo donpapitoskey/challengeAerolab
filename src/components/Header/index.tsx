@@ -6,7 +6,7 @@ const Header: React.FC = () => {
     <Container id="header-container">
       <Icon src="/icons/aerolab-logo.svg"></Icon>
       <Sidebar>
-        <CoinsContainer>
+        <CoinsContainer className="coins-addition">
           + <img src="/icons/coin.svg" />{' '}
         </CoinsContainer>
         <h3>name</h3>
