@@ -1,11 +1,9 @@
 import React from 'react';
-import Head from 'next/head';
+import {NextPage} from 'next';
 import {HomePage} from 'src/components';
-import styles from '../styles/Home.module.css';
 
-export default function Home() {
-  return <HomePage />;
-  return (
+export const Home: NextPage = () => <HomePage />;
+/*return (
     <div className={styles.container}>
       <Head>
         <title>Loyalty program | Home</title>
@@ -55,5 +53,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  );
-}
+  );*/
+export default Home;

@@ -9,6 +9,7 @@ export const Container = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 0 1rem;
+  background-color: white;
 `;
 
 export const Icon = styled.img`
