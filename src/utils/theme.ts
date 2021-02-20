@@ -11,7 +11,7 @@ export interface BackgroundColor {
   dark: string;
   light: string;
   lightBlue: string;
-  lightGray: string;
+  veryLightGray: string;
 }
 
 export interface Theme {
@@ -30,7 +30,7 @@ const background: BackgroundColor = {
   dark: '#1e2228',
   light: '#fff',
   lightBlue: '#f4f7fd',
-  lightGray: '#CDCDD233',
+  veryLightGray: '#F9F9F9',
 };
 
 export const theme: Theme = {
