@@ -5,6 +5,7 @@ export interface Color {
   gray93: string;
   green: string;
   red: string;
+  vividCyan: string;
 }
 
 export interface BackgroundColor {
@@ -25,6 +26,7 @@ const colors: Color = {
   gray93: '#EDEDED',
   green: '#00FF00',
   red: '#FF0000',
+  vividCyan: '#0ad4fa',
 };
 const background: BackgroundColor = {
   dark: '#1e2228',
