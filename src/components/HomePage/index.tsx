@@ -29,17 +29,18 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
     setProductsOrdered(sortedItems);
   };
 
-  const handleCoinsAcquisition = useCallback(
-    async (quantity: number) => {
-      const [err, data] = await to(addPoints(quantity));
-      if (err) return;
-      if (data) {
-        setCoinsAvaliable(coinsAvailable + quantity);
-        setShowModal(false);
-      }
-    },
-    [coinsAvailable],
-  );
+  const handleCoinsAcquisition = useCallback(async (quantity: number) => {
+    const [err, data] = await to(addPoints(quantity));
+    if (err) return;
+    const response = JSON.parse(await data.text());
+    /* I dont know if intentional, but API object with spaced keys are quiet ugly */
+    const {message} = response;
+    const newPoints = response['New Points'];
+    if (message === 'Points Updated') {
+      setCoinsAvaliable(newPoints);
+      setShowModal(false);
+    }
+  }, []);
 
   const handleOrderItems = useCallback(
     (arangeType: string) => {
