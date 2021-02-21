@@ -4,11 +4,17 @@ import {theme} from 'src/utils/theme';
 const {gray93, gray80, vividCyan} = theme.colors;
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   padding: 0 3rem;
+  .navigation-arrows {
+    position: absolute;
+    right: 0;
+    margin: 0 3rem 0;
+  }
 `;
 
 export const AvailableProducts = styled.h3``;
@@ -36,6 +42,11 @@ export const SortButton = styled.button`
     color: black;
     background-color: ${gray80};
   }
+`;
+
+export const NavButton = styled.img`
+  width: 2rem;
+  margin: 0 0 0 1rem;
 `;
 
 export const Vr = styled.hr`

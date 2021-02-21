@@ -1,5 +1,5 @@
 import React from 'react';
-import {AvailableProducts, Container, Hr, SortButton, Vr} from './styles';
+import {AvailableProducts, Container, Hr, NavButton, SortButton, Vr} from './styles';
 
 interface Props {
   onlyNumbers?: boolean;
@@ -19,6 +19,10 @@ const Navbar: React.FC<Props> = ({onlyNumbers = false}) => {
             <SortButton>Highest price</SortButton>
           </>
         )}
+        <div className="navigation-arrows">
+          <NavButton src="/icons/arrow-left.svg" />
+          <NavButton src="icons/arrow-right.svg" />
+        </div>
       </Container>
       <Hr />
     </>
