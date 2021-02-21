@@ -19,6 +19,9 @@ export const SortButton = styled.button`
   border: transparent;
   padding: 0.4rem 1rem;
   margin: 0 1rem;
+  &:focus {
+    outline: none;
+  }
   &.selected {
     color: white;
     background-color: ${vividCyan};

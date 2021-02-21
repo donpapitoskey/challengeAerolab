@@ -7,6 +7,7 @@ export const CatalogContainer = styled.main`
   min-height: 100vh;
   background-color: ${veryLightGray};
   overflow-y: auto;
+  padding: 0 0 3rem;
   .card-container {
     display: flex;
     flex-direction: row;

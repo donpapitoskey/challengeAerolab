@@ -29,6 +29,7 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         <Banner />
         <Navbar />
         <div className="card-container">{displayCards()}</div>
+        <Navbar onlyNumbers={true} />
       </CatalogContainer>
     </>
   );
