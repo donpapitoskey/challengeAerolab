@@ -21,10 +21,23 @@ export const Container = styled.div`
   }
 `;
 
+export const Hotspot = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: transparent;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 export const ModalContainer = styled.div`
   padding: 5rem;
   background-color: ${gray93};
   border-radius: 5px;
+  z-index: 2;
 `;
 
 export const Title = styled.h1`
