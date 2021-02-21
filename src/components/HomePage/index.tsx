@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Head from 'next/head';
 import {Header, Banner, Card, Navbar} from 'src/components';
 import {CatalogContainer} from './styles';
@@ -13,7 +13,10 @@ interface Props {
 const HomePage: React.FC<Props> = ({products, profile}) => {
   const {name, points} = profile;
   const [tailIndex, setTailIndex] = useState(16);
+  const [currentSort, setCurrentSort] = useState('recent');
   const [productsOrdered, setProductsOrdered] = useState(products);
+
+  const handleSortingTab = useCallback((nextTarget: string) => setCurrentSort(nextTarget), []);
 
   const sortItemsByPrice = (descendent: boolean) => {
     const sortedItems = [...productsOrdered].sort((a, b) => (descendent ? a.cost - b.cost : b.cost - a.cost));
@@ -22,6 +25,7 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
 
   const handleOrderItems = useCallback(
     (arangeType: string) => {
+      handleSortingTab(arangeType);
       switch (arangeType) {
         case 'recent':
           return setProductsOrdered(products);
@@ -44,13 +48,11 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
     [tailIndex, productsOrdered],
   );
 
-  useEffect(() => {}, [productsOrdered, tailIndex]);
-
-  const displayCards = () => {
+  const displayCards = useCallback(() => {
     return productsOrdered.slice(tailIndex - 16, tailIndex).map((product) => {
       return <Card key={product._id} product={product} />;
     });
-  };
+  }, [tailIndex, productsOrdered]);
 
   return (
     <>
@@ -62,15 +64,12 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         <Header name={name} points={points} />
         <Banner />
         <Navbar
+          currentSort={currentSort}
           handleOrderItems={handleOrderItems}
           tailIndex={tailIndex}
           handleIndexChange={handleIndexChange}
         />
-        <div className="card-container">
-          {productsOrdered.slice(tailIndex - 16, tailIndex).map((product) => (
-            <Card key={product._id} product={product} />
-          ))}
-        </div>
+        <div className="card-container">{displayCards()}</div>
         <Navbar tailIndex={tailIndex} onlyNumbers={true} handleIndexChange={handleIndexChange} />
       </CatalogContainer>
     </>

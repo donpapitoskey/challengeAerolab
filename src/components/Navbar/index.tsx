@@ -4,11 +4,18 @@ import {AvailableProducts, Container, Hr, NavButton, SortButton, Vr} from './sty
 interface Props {
   onlyNumbers?: boolean;
   tailIndex: number;
+  currentSort?: string;
   handleIndexChange: (newTail: number) => void;
   handleOrderItems?: (orderType: string) => void;
 }
 
-const Navbar: React.FC<Props> = ({handleIndexChange, handleOrderItems, onlyNumbers = false, tailIndex}) => {
+const Navbar: React.FC<Props> = ({
+  currentSort,
+  handleIndexChange,
+  handleOrderItems,
+  onlyNumbers = false,
+  tailIndex,
+}) => {
   return (
     <>
       <Container id="navbar-container">
@@ -17,11 +24,22 @@ const Navbar: React.FC<Props> = ({handleIndexChange, handleOrderItems, onlyNumbe
           <>
             <Vr />
             <p>Sort by:</p>
-            <SortButton className="selected" onClick={handleOrderItems?.bind(null, 'recent')}>
+            <SortButton
+              className={currentSort === 'recent' ? 'selected' : ''}
+              onClick={handleOrderItems?.bind(null, 'recent')}>
               Most recent
             </SortButton>
-            <SortButton onClick={handleOrderItems?.bind(null, 'lowest')}>Lowest price</SortButton>
-            <SortButton onClick={handleOrderItems?.bind(null, 'highest')}>Highest price</SortButton>
+
+            <SortButton
+              className={currentSort === 'lowest' ? 'selected' : ''}
+              onClick={handleOrderItems?.bind(null, 'lowest')}>
+              Lowest price
+            </SortButton>
+            <SortButton
+              className={currentSort === 'highest' ? 'selected' : ''}
+              onClick={handleOrderItems?.bind(null, 'highest')}>
+              Highest price
+            </SortButton>
           </>
         )}
         <div className="navigation-arrows">
