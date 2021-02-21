@@ -1,5 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import Head from 'next/head';
+import {addPoints} from 'src/api/POST/points';
+import {to} from 'src/api/async';
 import {Header, Banner, Card, Modal, Navbar} from 'src/components';
 import {CatalogContainer} from './styles';
 import {Product} from 'src/interfaces/product';
@@ -12,12 +14,13 @@ interface Props {
 
 const HomePage: React.FC<Props> = ({products, profile}) => {
   const {name, points} = profile;
+  const [coinsAvailable, setCoinsAvaliable] = useState(points);
   const [tailIndex, setTailIndex] = useState(16);
   const [currentSort, setCurrentSort] = useState('recent');
   const [productsOrdered, setProductsOrdered] = useState(products);
-  const [showModal, setshowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleShowModal = useCallback((show: boolean) => setshowModal(show), []);
+  const handleShowModal = useCallback((show: boolean) => setShowModal(show), []);
 
   const handleSortingTab = useCallback((nextTarget: string) => setCurrentSort(nextTarget), []);
 
@@ -25,6 +28,18 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
     const sortedItems = [...productsOrdered].sort((a, b) => (descendent ? a.cost - b.cost : b.cost - a.cost));
     setProductsOrdered(sortedItems);
   };
+
+  const handleCoinsAcquisition = useCallback(
+    async (quantity: number) => {
+      const [err, data] = await to(addPoints(quantity));
+      if (err) return;
+      if (data) {
+        setCoinsAvaliable(coinsAvailable + quantity);
+        setShowModal(false);
+      }
+    },
+    [coinsAvailable],
+  );
 
   const handleOrderItems = useCallback(
     (arangeType: string) => {
@@ -64,7 +79,7 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CatalogContainer>
-        <Header name={name} points={points} handleShowModal={handleShowModal} />
+        <Header name={name} points={coinsAvailable} handleShowModal={handleShowModal} />
         <Banner />
         <Navbar
           currentSort={currentSort}
@@ -74,7 +89,9 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         />
         <div className="card-container">{displayCards()}</div>
         <Navbar tailIndex={tailIndex} onlyNumbers={true} handleIndexChange={handleIndexChange} />
-        {showModal && <Modal handleShowModal={handleShowModal} />}
+        {showModal && (
+          <Modal handleShowModal={handleShowModal} handleCoinsAcquisition={handleCoinsAcquisition} />
+        )}
       </CatalogContainer>
     </>
   );

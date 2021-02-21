@@ -1,5 +1,5 @@
-import { URL_API } from 'src/utils/constants';
-import { FetchOptions } from 'src/interfaces/fetchOptions';
+import {URL_API} from 'src/utils/constants';
+import {FetchOptions} from 'src/interfaces/fetchOptions';
 
 export const addPoints = (amount: number) => {
   const endpoint = `${URL_API}/user/points`;
@@ -8,10 +8,10 @@ export const addPoints = (amount: number) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: `Bearer ${process.env.AUTH_TOKEN}`
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${process.env.AUTH_TOKEN}`,
     },
-    body: `{ \"amount\": ${amount}}`
+    body: `{ \"amount\": ${amount}}`,
   };
 
   return fetch(endpoint, fetchOptions);
