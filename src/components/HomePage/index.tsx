@@ -34,7 +34,7 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
     const [err, data] = await to(addPoints(quantity));
     if (err) return;
     const response = JSON.parse(await data.text());
-    /* I dont know if intentional, but API object with spaced keys are quiet ugly */
+    /* I dont know if intentional, but API object with spaced keys are quiet ugly/unconfortable */
     const {message} = response;
     const newPoints = response['New Points'];
     if (message === 'Points Updated') {
@@ -96,7 +96,7 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
     <>
       <Head>
         <title>Loyalty program | Catalog</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/icons/favicon.ico" />
       </Head>
       <CatalogContainer>
         <Header name={name} points={coinsAvailable} handleShowModal={handleShowModal} />
