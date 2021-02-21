@@ -1,29 +1,39 @@
 import React from 'react';
-import {Category, Container, Icon, Image, Modal, Price, Redeem, Name} from './styles';
+import {Category, CoinContainer, Container, Icon, Image, Modal, Price, Redeem, Name} from './styles';
 import {Product} from 'src/interfaces/product';
 
 interface Props {
   product: Product;
+  points: number;
 }
 
-const Card: React.FC<Props> = ({product}) => {
+const Card: React.FC<Props> = ({product, points}) => {
   const {name, img, category, cost} = product;
-
+  const redeemable = points >= cost;
   return (
     <Container id="card">
-      <Icon src="/icons/buy-blue.svg" />
+      {redeemable ? (
+        <Icon src="/icons/buy-blue.svg" />
+      ) : (
+        <CoinContainer>
+          {`You need ${cost - points} `}
+          <img src="/icons/coin.svg" />{' '}
+        </CoinContainer>
+      )}
       <Image src={img.url} />
       <hr />
       <Category>{category}</Category>
       <Name>{name}</Name>
-      <Modal>
-        <Icon src="/icons/buy-white.svg" />
-        <Price>
-          <p>{cost}</p>
-          <img src="/icons/coin.svg" />
-        </Price>
-        <Redeem>Redeem now</Redeem>
-      </Modal>
+      {redeemable && (
+        <Modal>
+          <Icon src="/icons/buy-white.svg" />
+          <Price>
+            <p>{cost}</p>
+            <img src="/icons/coin.svg" />
+          </Price>
+          <Redeem>Redeem now</Redeem>
+        </Modal>
+      )}
     </Container>
   );
 };

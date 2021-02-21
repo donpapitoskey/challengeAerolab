@@ -8,6 +8,7 @@ export interface Color {
   gray93: string;
   green: string;
   red: string;
+  veryDarkGray: string;
   vividCyan: string;
   vividCyan86: string;
 }
@@ -33,6 +34,7 @@ const colors: Color = {
   gray93: '#EDEDED',
   green: '#00FF00',
   red: '#FF0000',
+  veryDarkGray: '#616161',
   vividCyan: '#0ad4fa',
   vividCyan86: 'rgba(10,212,255,0.86)',
 };

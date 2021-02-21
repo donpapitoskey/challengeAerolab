@@ -50,7 +50,7 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
 
   const displayCards = useCallback(() => {
     return productsOrdered.slice(tailIndex - 16, tailIndex).map((product) => {
-      return <Card key={product._id} product={product} />;
+      return <Card key={product._id} product={product} points={points} />;
     });
   }, [tailIndex, productsOrdered]);
 

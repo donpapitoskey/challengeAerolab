@@ -36,9 +36,6 @@ export const CoinsContainer = styled.div`
   border-radius: 13px;
   padding: 0.3rem 0.5rem;
   transition: all 100ms ease;
-  &.coins-addition {
-    color: white;
-  }
   &:hover {
     cursor: pointer;
     background-color: ${gray80};

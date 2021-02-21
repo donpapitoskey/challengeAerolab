@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {theme} from 'src/utils/theme';
 
-const {darkGray, gray44, vividCyan86} = theme.colors;
+const {darkGray, gray44, gray80, gray93, veryDarkGray, vividCyan86} = theme.colors;
 
 export const Container = styled.div`
   position: relative;
@@ -24,6 +24,29 @@ export const Icon = styled.img`
   right: 1rem;
   width: 2.5rem;
   opacity: 1;
+`;
+
+export const CoinContainer = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  opacity: 1;
+  background-color: ${veryDarkGray};
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  padding: 0.3rem 0.5rem;
+  transition: all 100ms ease;
+  &:hover {
+    cursor: pointer;
+    background-color: ${gray80};
+  }
+  img {
+    margin: 3px 0 0 0.2rem;
+    width: 1rem;
+  }
 `;
 
 export const Image = styled.img`
