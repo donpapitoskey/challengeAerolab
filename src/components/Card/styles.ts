@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {theme} from 'src/utils/theme';
 
-const {darkGray, gray44, gray80, gray93, veryDarkGray, vividCyan86} = theme.colors;
+const {darkGray, gray44, gray80, veryDarkGray, vividCyan86} = theme.colors;
 
 export const Container = styled.div`
   position: relative;
