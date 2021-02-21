@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import {Header, Banner, Navbar} from 'src/components';
+import {Header, Banner, Card, Navbar} from 'src/components';
 import {CatalogContainer} from './styles';
 import {Product} from 'src/interfaces/product';
 import {User} from 'src/interfaces/user';
@@ -12,6 +12,12 @@ interface Props {
 
 const HomePage: React.FC<Props> = ({products, profile}) => {
   const {name, points} = profile;
+
+  const displayCards = () => {
+    return products.map((product) => {
+      return <Card key={product._id} product={product} />;
+    });
+  };
   return (
     <>
       <Head>
@@ -22,6 +28,7 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         <Header name={name} points={points} />
         <Banner />
         <Navbar />
+        <div className="card-container">{displayCards()}</div>
       </CatalogContainer>
     </>
   );

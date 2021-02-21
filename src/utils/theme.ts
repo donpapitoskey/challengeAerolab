@@ -1,5 +1,7 @@
 export interface Color {
   blue: string;
+  darkGray: string;
+  gray44: string;
   gray80: string;
   gray85: string;
   gray93: string;
@@ -21,6 +23,8 @@ export interface Theme {
 }
 const colors: Color = {
   blue: '#0000fF',
+  darkGray: '#A3A3A3',
+  gray44: '#707070',
   gray80: '#cccccc',
   gray85: '#D9D9D9',
   gray93: '#EDEDED',

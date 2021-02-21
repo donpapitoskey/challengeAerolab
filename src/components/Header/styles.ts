@@ -19,6 +19,7 @@ export const Icon = styled.img`
 export const Sidebar = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   > * {
     margin: 0.5rem;
   }
