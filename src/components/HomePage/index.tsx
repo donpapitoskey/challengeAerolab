@@ -84,13 +84,13 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         <Card
           key={product._id}
           product={product}
-          points={points}
+          points={coinsAvailable}
           handleCoinsRedeem={handleCoinsRedeem}
           handleShowModal={handleShowModal}
         />
       );
     });
-  }, [tailIndex, productsOrdered]);
+  }, [tailIndex, productsOrdered, coinsAvailable]);
 
   return (
     <>
