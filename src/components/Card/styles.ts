@@ -107,6 +107,9 @@ export const Redeem = styled.button`
   background-color: white;
   color: ${gray44};
   border: none;
+  &:focus {
+    outline: none;
+  }
   &:hover {
     cursor: pointer;
   }

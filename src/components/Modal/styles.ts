@@ -62,6 +62,9 @@ export const Button = styled.button`
   background-color: ${gray44};
   color: white;
   transition: all 100ms ease;
+  &:focus {
+    outline: none;
+  }
   &:hover {
     cursor: pointer;
     background-color: ${gray80};
