@@ -17,6 +17,7 @@ export interface BackgroundColor {
   dark: string;
   light: string;
   lightBlue: string;
+  modalBackground: string;
   veryLightGray: string;
 }
 
@@ -42,6 +43,7 @@ const background: BackgroundColor = {
   dark: '#1e2228',
   light: '#fff',
   lightBlue: '#f4f7fd',
+  modalBackground: 'rgba(0,0,0,0.7 )',
   veryLightGray: '#F9F9F9',
 };
 

@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import Head from 'next/head';
-import {Header, Banner, Card, Navbar} from 'src/components';
+import {Header, Banner, Card, Modal, Navbar} from 'src/components';
 import {CatalogContainer} from './styles';
 import {Product} from 'src/interfaces/product';
 import {User} from 'src/interfaces/user';
@@ -71,6 +71,7 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         />
         <div className="card-container">{displayCards()}</div>
         <Navbar tailIndex={tailIndex} onlyNumbers={true} handleIndexChange={handleIndexChange} />
+        <Modal />
       </CatalogContainer>
     </>
   );
