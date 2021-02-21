@@ -1,6 +1,7 @@
 export interface Color {
   blue: string;
   darkGray: string;
+  gray38: string;
   gray44: string;
   gray80: string;
   gray85: string;
@@ -8,6 +9,7 @@ export interface Color {
   green: string;
   red: string;
   vividCyan: string;
+  vividCyan86: string;
 }
 
 export interface BackgroundColor {
@@ -24,6 +26,7 @@ export interface Theme {
 const colors: Color = {
   blue: '#0000fF',
   darkGray: '#A3A3A3',
+  gray38: '#616161',
   gray44: '#707070',
   gray80: '#cccccc',
   gray85: '#D9D9D9',
@@ -31,6 +34,7 @@ const colors: Color = {
   green: '#00FF00',
   red: '#FF0000',
   vividCyan: '#0ad4fa',
+  vividCyan86: 'rgba(10,212,255,0.86)',
 };
 const background: BackgroundColor = {
   dark: '#1e2228',
