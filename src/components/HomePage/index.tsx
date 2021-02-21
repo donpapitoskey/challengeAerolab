@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import Head from 'next/head';
 import {Header, Banner, Card, Navbar} from 'src/components';
 import {CatalogContainer} from './styles';
@@ -12,12 +12,39 @@ interface Props {
 
 const HomePage: React.FC<Props> = ({products, profile}) => {
   const {name, points} = profile;
+  const [tailIndex, setTailIndex] = useState(16);
+  const [productsOrdered, setProductsOrdered] = useState(products);
 
-  const displayCards = () => {
-    return products.map((product) => {
+  const handleOrderItems = useCallback((arangeType: string) => {
+    switch (arangeType) {
+      case 'recent':
+        console.log('pressed most recent');
+        break;
+      case 'lowest':
+        console.log('pressed lowest price');
+        break;
+      case 'highest':
+        console.log('pressed highest price');
+        break;
+      default:
+        break;
+    }
+  }, []);
+
+  const handleIndexChange = useCallback(
+    (newTail: number) => {
+      const nextTail = tailIndex + newTail;
+      if (nextTail <= productsOrdered.length) setTailIndex(tailIndex + newTail);
+    },
+    [tailIndex],
+  );
+
+  const displayCards = useCallback(() => {
+    return productsOrdered.slice(tailIndex - 16, tailIndex).map((product) => {
       return <Card key={product._id} product={product} />;
     });
-  };
+  }, [tailIndex]);
+
   return (
     <>
       <Head>
@@ -27,9 +54,13 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
       <CatalogContainer>
         <Header name={name} points={points} />
         <Banner />
-        <Navbar />
+        <Navbar
+          handleOrderItems={handleOrderItems}
+          tailIndex={tailIndex}
+          handleIndexChange={handleIndexChange}
+        />
         <div className="card-container">{displayCards()}</div>
-        <Navbar onlyNumbers={true} />
+        <Navbar tailIndex={tailIndex} onlyNumbers={true} handleIndexChange={handleIndexChange} />
       </CatalogContainer>
     </>
   );

@@ -47,6 +47,9 @@ export const SortButton = styled.button`
 export const NavButton = styled.img`
   width: 2rem;
   margin: 0 0 0 1rem;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Vr = styled.hr`
