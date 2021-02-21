@@ -3,11 +3,12 @@ import {Category, CoinContainer, Container, Icon, Image, Modal, Price, Redeem, N
 import {Product} from 'src/interfaces/product';
 
 interface Props {
+  handleShowModal: (show: boolean) => void;
   product: Product;
   points: number;
 }
 
-const Card: React.FC<Props> = ({product, points}) => {
+const Card: React.FC<Props> = ({handleShowModal, product, points}) => {
   const {name, img, category, cost} = product;
   const redeemable = points >= cost;
   return (
@@ -15,7 +16,7 @@ const Card: React.FC<Props> = ({product, points}) => {
       {redeemable ? (
         <Icon src="/icons/buy-blue.svg" />
       ) : (
-        <CoinContainer>
+        <CoinContainer onClick={handleShowModal.bind(null, true)}>
           {`You need ${cost - points} `}
           <img src="/icons/coin.svg" />{' '}
         </CoinContainer>

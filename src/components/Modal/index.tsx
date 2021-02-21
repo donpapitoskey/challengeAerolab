@@ -1,7 +1,11 @@
 import React from 'react';
 import {Container, Hotspot, ModalContainer, Button, Subtitle, Title} from './styles';
 
-const Modal: React.FC = () => {
+interface Props {
+  handleShowModal: (show: boolean) => void;
+}
+
+const Modal: React.FC<Props> = ({handleShowModal}) => {
   return (
     <>
       <Container>
@@ -20,7 +24,7 @@ const Modal: React.FC = () => {
             </Button>
           </div>
         </ModalContainer>
-        <Hotspot />
+        <Hotspot onClick={handleShowModal.bind(null, false)} />
       </Container>
     </>
   );

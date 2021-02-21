@@ -15,6 +15,9 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
   const [tailIndex, setTailIndex] = useState(16);
   const [currentSort, setCurrentSort] = useState('recent');
   const [productsOrdered, setProductsOrdered] = useState(products);
+  const [showModal, setshowModal] = useState(false);
+
+  const handleShowModal = useCallback((show: boolean) => setshowModal(show), []);
 
   const handleSortingTab = useCallback((nextTarget: string) => setCurrentSort(nextTarget), []);
 
@@ -50,7 +53,7 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
 
   const displayCards = useCallback(() => {
     return productsOrdered.slice(tailIndex - 16, tailIndex).map((product) => {
-      return <Card key={product._id} product={product} points={points} />;
+      return <Card key={product._id} product={product} points={points} handleShowModal={handleShowModal} />;
     });
   }, [tailIndex, productsOrdered]);
 
@@ -61,7 +64,7 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CatalogContainer>
-        <Header name={name} points={points} />
+        <Header name={name} points={points} handleShowModal={handleShowModal} />
         <Banner />
         <Navbar
           currentSort={currentSort}
@@ -71,7 +74,7 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         />
         <div className="card-container">{displayCards()}</div>
         <Navbar tailIndex={tailIndex} onlyNumbers={true} handleIndexChange={handleIndexChange} />
-        <Modal />
+        {showModal && <Modal handleShowModal={handleShowModal} />}
       </CatalogContainer>
     </>
   );
