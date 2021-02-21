@@ -2,8 +2,16 @@ import React from 'react';
 import Head from 'next/head';
 import {Header, Banner, Navbar} from 'src/components';
 import {CatalogContainer} from './styles';
+import {Product} from 'src/interfaces/product';
+import {User} from 'src/interfaces/user';
 
-const HomePage: React.FC = () => {
+interface Props {
+  products: Product[];
+  profile: User;
+}
+
+const HomePage: React.FC<Props> = ({products, profile}) => {
+  const {name, points} = profile;
   return (
     <>
       <Head>
@@ -11,7 +19,7 @@ const HomePage: React.FC = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CatalogContainer>
-        <Header />
+        <Header name={name} points={points} />
         <Banner />
         <Navbar />
       </CatalogContainer>
