@@ -1,6 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import Head from 'next/head';
 import {addPoints} from 'src/api/POST/points';
+import {redeemPoints} from 'src/api/POST/redeem';
 import {to} from 'src/api/async';
 import {Header, Banner, Card, Modal, Navbar} from 'src/components';
 import {CatalogContainer} from './styles';
@@ -42,6 +43,16 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
     }
   }, []);
 
+  const handleCoinsRedeem = useCallback(
+    async (id: string, price: number) => {
+      const [err, data] = await to(redeemPoints(id));
+      const {message} = JSON.parse(await data.text());
+      if (err) return;
+      if (message) setCoinsAvaliable(coinsAvailable - price);
+    },
+    [coinsAvailable],
+  );
+
   const handleOrderItems = useCallback(
     (arangeType: string) => {
       handleSortingTab(arangeType);
@@ -69,7 +80,15 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
 
   const displayCards = useCallback(() => {
     return productsOrdered.slice(tailIndex - 16, tailIndex).map((product) => {
-      return <Card key={product._id} product={product} points={points} handleShowModal={handleShowModal} />;
+      return (
+        <Card
+          key={product._id}
+          product={product}
+          points={points}
+          handleCoinsRedeem={handleCoinsRedeem}
+          handleShowModal={handleShowModal}
+        />
+      );
     });
   }, [tailIndex, productsOrdered]);
 

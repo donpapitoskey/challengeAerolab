@@ -1,5 +1,5 @@
-import { URL_API } from 'src/utils/constants';
-import { FetchOptions } from 'src/interfaces/fetchOptions';
+import {URL_API} from 'src/utils/constants';
+import {FetchOptions} from 'src/interfaces/fetchOptions';
 
 export const redeemPoints = (itemId: string) => {
   const endpoint = `${URL_API}/redeem`;
@@ -8,10 +8,10 @@ export const redeemPoints = (itemId: string) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: `Bearer ${process.env.AUTH_TOKEN}`
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${process.env.AUTH_TOKEN}`,
     },
-    body: `{ \"productId\": \"${itemId}\"}`
+    body: `{ \"productId\": \"${itemId}\"}`,
   };
 
   return fetch(endpoint, fetchOptions);

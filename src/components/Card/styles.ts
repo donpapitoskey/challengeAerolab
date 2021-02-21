@@ -79,7 +79,6 @@ export const Modal = styled.div`
   transition: all 100ms ease;
   &:hover {
     opacity: 1;
-    cursor: pointer;
     background-color: ${vividCyan86};
   }
 `;

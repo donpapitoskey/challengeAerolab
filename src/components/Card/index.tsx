@@ -3,13 +3,14 @@ import {Category, CoinContainer, Container, Icon, Image, Modal, Price, Redeem, N
 import {Product} from 'src/interfaces/product';
 
 interface Props {
+  handleCoinsRedeem: (id: string, price: number) => void;
   handleShowModal: (show: boolean) => void;
   product: Product;
   points: number;
 }
 
-const Card: React.FC<Props> = ({handleShowModal, product, points}) => {
-  const {name, img, category, cost} = product;
+const Card: React.FC<Props> = ({handleCoinsRedeem, handleShowModal, product, points}) => {
+  const {name, img, category, cost, _id} = product;
   const redeemable = points >= cost;
   return (
     <Container id="card">
@@ -32,7 +33,7 @@ const Card: React.FC<Props> = ({handleShowModal, product, points}) => {
             <p>{cost}</p>
             <img src="/icons/coin.svg" />
           </Price>
-          <Redeem>Redeem now</Redeem>
+          <Redeem onClick={handleCoinsRedeem.bind(null, _id, cost)}>Redeem now</Redeem>
         </Modal>
       )}
     </Container>
