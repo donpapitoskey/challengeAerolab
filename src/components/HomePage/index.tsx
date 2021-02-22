@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Head from 'next/head';
 import {addPoints} from 'src/api/POST/points';
 import {redeemPoints} from 'src/api/POST/redeem';
@@ -15,13 +15,26 @@ interface Props {
 
 const HomePage: React.FC<Props> = ({products, profile}) => {
   const {name, points} = profile;
-  const [coinsAvailable, setCoinsAvaliable] = useState(points);
+  const [availableCoins, setAvaliableCoins] = useState(points);
   const [tailIndex, setTailIndex] = useState(16);
   const [currentSort, setCurrentSort] = useState('recent');
   const [productsOrdered, setProductsOrdered] = useState(products);
   const [showModal, setShowModal] = useState(false);
+  const [showFeedback, setShowFeedback] = useState('');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleShowModal(false);
+      handleFeedback('');
+    }, 3000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [showFeedback]);
 
   const handleShowModal = useCallback((show: boolean) => setShowModal(show), []);
+
+  const handleFeedback = useCallback((feedback: string) => setShowFeedback(feedback), []);
 
   const handleSortingTab = useCallback((nextTarget: string) => setCurrentSort(nextTarget), []);
 
@@ -38,19 +51,26 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
     const {message} = response;
     const newPoints = response['New Points'];
     if (message === 'Points Updated') {
-      setCoinsAvaliable(newPoints);
-      setShowModal(false);
+      handleFeedback('added');
+      setAvaliableCoins(newPoints);
+      //handleShowModal(false);
     }
   }, []);
+
+  useEffect(() => {}, [showFeedback]);
 
   const handleCoinsRedeem = useCallback(
     async (id: string, price: number) => {
       const [err, data] = await to(redeemPoints(id));
       const {message} = JSON.parse(await data.text());
       if (err) return;
-      if (message) setCoinsAvaliable(coinsAvailable - price);
+      if (message) {
+        setAvaliableCoins(availableCoins - price);
+        handleShowModal(true);
+        handleFeedback('redeemed');
+      }
     },
-    [coinsAvailable],
+    [availableCoins],
   );
 
   const handleOrderItems = useCallback(
@@ -84,13 +104,13 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         <Card
           key={product._id}
           product={product}
-          points={coinsAvailable}
+          points={availableCoins}
           handleCoinsRedeem={handleCoinsRedeem}
           handleShowModal={handleShowModal}
         />
       );
     });
-  }, [tailIndex, productsOrdered, coinsAvailable]);
+  }, [tailIndex, productsOrdered, availableCoins]);
 
   return (
     <>
@@ -99,7 +119,7 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         <link rel="icon" href="/icons/favicon.ico" />
       </Head>
       <CatalogContainer>
-        <Header name={name} points={coinsAvailable} handleShowModal={handleShowModal} />
+        <Header name={name} points={availableCoins} handleShowModal={handleShowModal} />
         <Banner />
         <Navbar
           currentSort={currentSort}
@@ -110,7 +130,12 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         <div className="card-container">{displayCards()}</div>
         <Navbar tailIndex={tailIndex} onlyNumbers={true} handleIndexChange={handleIndexChange} />
         {showModal && (
-          <Modal handleShowModal={handleShowModal} handleCoinsAcquisition={handleCoinsAcquisition} />
+          <Modal
+            coins={availableCoins}
+            showFeedback={showFeedback}
+            handleShowModal={handleShowModal}
+            handleCoinsAcquisition={handleCoinsAcquisition}
+          />
         )}
       </CatalogContainer>
     </>
