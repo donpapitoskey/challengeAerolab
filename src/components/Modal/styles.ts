@@ -14,10 +14,14 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${modalBackground};
-
   .buttons-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+  }
+  @media (min-width: 650px) {
+    .buttons-container {
+      flex-direction: row;
+    }
   }
 `;
 
@@ -34,10 +38,13 @@ export const Hotspot = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  padding: 5rem;
+  padding: 2rem;
   background-color: ${gray93};
   border-radius: 5px;
   z-index: 2;
+  @media (min-width: 650px) {
+    padding: 5rem;
+  }
 `;
 
 export const Title = styled.h1`
@@ -53,7 +60,7 @@ export const Button = styled.button`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 0 0 0 2rem;
+  margin: 0.5rem 1rem 0;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 25px;
@@ -68,5 +75,8 @@ export const Button = styled.button`
   &:hover {
     cursor: pointer;
     background-color: ${gray80};
+  }
+  @media (min-width: 650px) {
+    margin: 0 0 0 2rem;
   }
 `;

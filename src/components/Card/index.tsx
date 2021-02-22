@@ -1,4 +1,5 @@
 import React from 'react';
+import {isMobile} from 'src/utils/constants';
 import {Category, CoinContainer, Container, Icon, Image, Modal, Price, Redeem, Name} from './styles';
 import {Product} from 'src/interfaces/product';
 
@@ -12,6 +13,7 @@ interface Props {
 const Card: React.FC<Props> = ({handleCoinsRedeem, handleShowModal, product, points}) => {
   const {name, img, category, cost, _id} = product;
   const redeemable = points >= cost;
+  const mobile = isMobile();
   return (
     <Container id="card">
       {redeemable ? (
@@ -26,7 +28,16 @@ const Card: React.FC<Props> = ({handleCoinsRedeem, handleShowModal, product, poi
       <hr />
       <Category>{category}</Category>
       <Name>{name}</Name>
-      {redeemable && (
+      {mobile && redeemable && (
+        <>
+          <Price>
+            <p>{cost}</p>
+            <img src="/icons/coin.svg" />
+          </Price>
+          <Redeem onClick={handleCoinsRedeem.bind(null, _id, cost)}>Redeem now</Redeem>
+        </>
+      )}
+      {redeemable && !mobile && (
         <Modal>
           <Icon src="/icons/buy-white.svg" />
           <Price>

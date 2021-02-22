@@ -13,9 +13,8 @@ export const Container = styled.div`
   flex-wrap: wrap;
   .navigation-arrows {
     position: absolute;
-    right: 0;
+    right: 1rem;
     top: 0.8rem;
-    margin: 0 3rem 0;
   }
   .buttons-container {
     display: flex;
@@ -76,16 +75,22 @@ export const SortButton = styled.button`
 
 export const NavButton = styled.img`
   width: 2rem;
-  margin: 0 0 0 1rem;
+  margin: 0 0 0 0.3rem;
   &:hover {
     cursor: pointer;
+  }
+  @media (min-width: 650px) {
+    margin: 0 0 0 1rem;
   }
 `;
 
 export const Vr = styled.hr`
-  margin: 0 1rem;
+  margin: 0 0.5rem;
   width: 1px;
   height: 2rem;
+  @media (min-width: 650px) {
+    margin: 0 1rem;
+  }
 `;
 
 export const Hr = styled.hr`

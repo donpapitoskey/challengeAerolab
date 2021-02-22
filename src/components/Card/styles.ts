@@ -90,7 +90,7 @@ export const Price = styled.div`
   align-items: center;
   margin: 0 0 0.8rem;
   p {
-    color: white;
+    color: ${gray44};
     font-size: 2rem;
     margin: 0;
   }
@@ -98,19 +98,26 @@ export const Price = styled.div`
     width: 2rem;
     margin: 0.5rem 0 0 0.7rem;
   }
+  @media (min-width: 650px) {
+    color: white;
+  }
 `;
 
 export const Redeem = styled.button`
   width: 80%;
   padding: 0.5rem 0;
   border-radius: 15px;
-  background-color: white;
+  background-color: ${gray80};
   color: ${gray44};
   border: none;
+  align-self: center;
   &:focus {
     outline: none;
   }
   &:hover {
     cursor: pointer;
+  }
+  @media (min-width: 650px) {
+    background-color: white;
   }
 `;
