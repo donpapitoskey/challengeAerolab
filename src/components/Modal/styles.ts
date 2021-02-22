@@ -42,6 +42,7 @@ export const ModalContainer = styled.div`
   background-color: ${gray93};
   border-radius: 5px;
   z-index: 2;
+  overflow-y: auto;
   @media (min-width: 650px) {
     padding: 5rem;
   }

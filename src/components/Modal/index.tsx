@@ -1,14 +1,24 @@
 import React from 'react';
 import {Container, Hotspot, ModalContainer, Button, Subtitle, Title} from './styles';
+import {Product} from 'src/interfaces/product';
 
 interface Props {
   coins: number;
   handleCoinsAcquisition: (quantity: number) => void;
   handleShowModal: (show: boolean) => void;
+  purchased: Product[];
+  showPurchased: boolean;
   showFeedback: string;
 }
 
-const Modal: React.FC<Props> = ({coins, handleCoinsAcquisition, handleShowModal, showFeedback}) => {
+const Modal: React.FC<Props> = ({
+  coins,
+  handleCoinsAcquisition,
+  handleShowModal,
+  purchased,
+  showPurchased,
+  showFeedback,
+}) => {
   const renderContent = () => {
     switch (showFeedback) {
       case 'redeemed':
@@ -45,10 +55,20 @@ const Modal: React.FC<Props> = ({coins, handleCoinsAcquisition, handleShowModal,
         );
     }
   };
+
+  const renderPurchased = () => {
+    return purchased.map((item) => {
+      return (
+        <>
+          <div>{item.name}</div>
+        </>
+      );
+    });
+  };
   return (
     <>
       <Container>
-        <ModalContainer>{renderContent()}</ModalContainer>
+        <ModalContainer>{showPurchased ? renderPurchased() : renderContent()}</ModalContainer>
         <Hotspot onClick={handleShowModal.bind(null, false)} />
       </Container>
     </>
