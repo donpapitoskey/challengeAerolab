@@ -24,22 +24,23 @@ const Navbar: React.FC<Props> = ({
           <>
             <Vr />
             <p>Sort by:</p>
-            <SortButton
-              className={currentSort === 'recent' ? 'selected' : ''}
-              onClick={handleOrderItems?.bind(null, 'recent')}>
-              Most recent
-            </SortButton>
-
-            <SortButton
-              className={currentSort === 'lowest' ? 'selected' : ''}
-              onClick={handleOrderItems?.bind(null, 'lowest')}>
-              Lowest price
-            </SortButton>
-            <SortButton
-              className={currentSort === 'highest' ? 'selected' : ''}
-              onClick={handleOrderItems?.bind(null, 'highest')}>
-              Highest price
-            </SortButton>
+            <div className="buttons-container">
+              <SortButton
+                className={currentSort === 'recent' ? 'selected' : ''}
+                onClick={handleOrderItems?.bind(null, 'recent')}>
+                Most recent
+              </SortButton>
+              <SortButton
+                className={currentSort === 'lowest' ? 'selected' : ''}
+                onClick={handleOrderItems?.bind(null, 'lowest')}>
+                Lowest price
+              </SortButton>
+              <SortButton
+                className={currentSort === 'highest' ? 'selected' : ''}
+                onClick={handleOrderItems?.bind(null, 'highest')}>
+                Highest price
+              </SortButton>
+            </div>
           </>
         )}
         <div className="navigation-arrows">
