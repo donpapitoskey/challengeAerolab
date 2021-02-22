@@ -14,6 +14,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${modalBackground};
+  z-index: 3;
   .buttons-container {
     display: flex;
     flex-direction: column;

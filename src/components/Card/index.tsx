@@ -1,6 +1,7 @@
 import React from 'react';
+import Image from 'next/image';
 import {isMobile} from 'src/utils/constants';
-import {Category, CoinContainer, Container, Icon, Image, Modal, Price, Redeem, Name} from './styles';
+import {Category, CoinContainer, Container, Icon, Modal, Price, Redeem, Name} from './styles';
 import {Product} from 'src/interfaces/product';
 
 interface Props {
@@ -24,7 +25,7 @@ const Card: React.FC<Props> = ({handleCoinsRedeem, handleShowModal, product, poi
           <img src="/icons/coin.svg" />{' '}
         </CoinContainer>
       )}
-      <Image src={img.url} />
+      <Image className="improved" width={'90%'} height={'200'} src={img.url} />
       <hr />
       <Category>{category}</Category>
       <Name>{name}</Name>

@@ -24,6 +24,7 @@ export const Icon = styled.img`
   right: 1rem;
   width: 2.5rem;
   opacity: 1;
+  z-index: 2;
 `;
 
 export const CoinContainer = styled.div`
@@ -38,6 +39,7 @@ export const CoinContainer = styled.div`
   justify-content: center;
   border-radius: 13px;
   padding: 0.3rem 0.5rem;
+  z-index: 2;
   transition: all 100ms ease;
   &:hover {
     cursor: pointer;
