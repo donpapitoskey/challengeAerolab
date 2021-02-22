@@ -54,6 +54,7 @@ export const ModalContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 2rem;
   background-color: ${gray93};
   border-radius: 5px;

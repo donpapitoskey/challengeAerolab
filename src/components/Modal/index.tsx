@@ -68,18 +68,25 @@ const Modal: React.FC<Props> = ({
   };
 
   const renderPurchased = () => {
-    return purchased.map((item) => {
-      return (
-        <>
-          <CardContainer>
-            <Image src={item.img.url} />
-            <hr />
-            <Category>{item.category}</Category>
-            <Name>{item.name}</Name>
-          </CardContainer>
-        </>
-      );
-    });
+    return (
+      <>
+        <Title>History</Title>
+        <p>
+          {`These are the items you 
+          have already purchased ${name}`}
+        </p>
+        {purchased.map((item) => {
+          return (
+            <CardContainer key={item._id}>
+              <Image src={item.img.url} />
+              <hr />
+              <Category>{item.category}</Category>
+              <Name>{item.name}</Name>
+            </CardContainer>
+          );
+        })}
+      </>
+    );
   };
   return (
     <>
