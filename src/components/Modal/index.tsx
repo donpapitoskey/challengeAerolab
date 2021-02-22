@@ -1,5 +1,16 @@
 import React from 'react';
-import {Container, Hotspot, ModalContainer, Button, Subtitle, Title} from './styles';
+import {
+  CardContainer,
+  Category,
+  Container,
+  Hotspot,
+  Image,
+  ModalContainer,
+  Name,
+  Button,
+  Subtitle,
+  Title,
+} from './styles';
 import {Product} from 'src/interfaces/product';
 
 interface Props {
@@ -60,14 +71,19 @@ const Modal: React.FC<Props> = ({
     return purchased.map((item) => {
       return (
         <>
-          <div>{item.name}</div>
+          <CardContainer>
+            <Image src={item.img.url} />
+            <hr />
+            <Category>{item.category}</Category>
+            <Name>{item.name}</Name>
+          </CardContainer>
         </>
       );
     });
   };
   return (
     <>
-      <Container>
+      <Container className={showPurchased ? 'cards-disposal' : 'other'}>
         <ModalContainer>{showPurchased ? renderPurchased() : renderContent()}</ModalContainer>
         <Hotspot onClick={handleShowModal.bind(null, false)} />
       </Container>
