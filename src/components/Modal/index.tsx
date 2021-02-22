@@ -73,7 +73,7 @@ const Modal: React.FC<Props> = ({
         <Title>History</Title>
         <p>
           {`These are the items you 
-          have already purchased ${name}`}
+          have already purchased.`}
         </p>
         {purchased.map((item) => {
           return (
