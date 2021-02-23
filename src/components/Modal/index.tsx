@@ -1,4 +1,5 @@
 import React from 'react';
+import {isMobile} from 'src/utils/constants';
 import {
   CardContainer,
   Category,
@@ -30,6 +31,7 @@ const Modal: React.FC<Props> = ({
   showPurchased,
   showFeedback,
 }) => {
+  const mobile = isMobile();
   const renderContent = () => {
     switch (showFeedback) {
       case 'redeemed':
@@ -70,6 +72,7 @@ const Modal: React.FC<Props> = ({
   const renderPurchased = () => {
     return (
       <>
+        {mobile && <div onClick={handleShowModal.bind(null, false)}>Close</div>}
         <Title>History</Title>
         <p>
           {`These are the items you 

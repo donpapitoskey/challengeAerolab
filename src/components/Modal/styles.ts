@@ -93,9 +93,11 @@ export const Button = styled.button`
   &:focus {
     outline: none;
   }
-  &:hover {
-    cursor: pointer;
-    background-color: ${gray80};
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      cursor: pointer;
+      background-color: ${gray80};
+    }
   }
   @media (min-width: 650px) {
     margin: 0 0 0 2rem;
