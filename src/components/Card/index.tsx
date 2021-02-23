@@ -1,11 +1,10 @@
 import React from 'react';
-import Image from 'next/image';
 import {isMobile} from 'src/utils/constants';
-import {Category, CoinContainer, Container, Icon, Modal, Price, Redeem, Name} from './styles';
+import {Category, CoinContainer, Container, Image, Icon, Modal, Price, Redeem, Name} from './styles';
 import {Product} from 'src/interfaces/product';
 
 interface Props {
-  handleCoinsRedeem: (id: string, price: number) => void;
+  handleCoinsRedeem: (id: string, price: number, product: Product) => void;
   handleShowModal: (show: boolean) => void;
   product: Product;
   points: number;
@@ -35,7 +34,7 @@ const Card: React.FC<Props> = ({handleCoinsRedeem, handleShowModal, product, poi
             <p>{cost}</p>
             <img src="/icons/coin.svg" />
           </Price>
-          <Redeem onClick={handleCoinsRedeem.bind(null, _id, cost)}>Redeem now</Redeem>
+          <Redeem onClick={handleCoinsRedeem.bind(null, _id, cost, product)}>Redeem now</Redeem>
         </>
       )}
       {redeemable && !mobile && (
@@ -45,7 +44,7 @@ const Card: React.FC<Props> = ({handleCoinsRedeem, handleShowModal, product, poi
             <p>{cost}</p>
             <img src="/icons/coin.svg" />
           </Price>
-          <Redeem onClick={handleCoinsRedeem.bind(null, _id, cost)}>Redeem now</Redeem>
+          <Redeem onClick={handleCoinsRedeem.bind(null, _id, cost, product)}>Redeem now</Redeem>
         </Modal>
       )}
     </Container>

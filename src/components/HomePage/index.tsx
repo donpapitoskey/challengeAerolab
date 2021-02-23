@@ -9,11 +9,12 @@ import {Product} from 'src/interfaces/product';
 import {User} from 'src/interfaces/user';
 
 interface Props {
+  history: Product[];
   products: Product[];
   profile: User;
 }
 
-const HomePage: React.FC<Props> = ({products, profile}) => {
+const HomePage: React.FC<Props> = ({history, products, profile}) => {
   const {name, points} = profile;
   const [availableCoins, setAvaliableCoins] = useState(points);
   const [tailIndex, setTailIndex] = useState(16);
@@ -21,6 +22,8 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
   const [productsOrdered, setProductsOrdered] = useState(products);
   const [showModal, setShowModal] = useState(false);
   const [showFeedback, setShowFeedback] = useState('');
+  const [purchased, setPurchased] = useState(history);
+  const [showPurchased, setShowPurchased] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,7 +35,13 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
     };
   }, [showFeedback]);
 
-  const handleShowModal = useCallback((show: boolean) => setShowModal(show), []);
+  const handleShowModal = useCallback(
+    (show: boolean) => {
+      setShowModal(show);
+      if (showPurchased) setShowPurchased(false);
+    },
+    [showPurchased],
+  );
 
   const handleFeedback = useCallback((feedback: string) => setShowFeedback(feedback), []);
 
@@ -42,6 +51,11 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
     const sortedItems = [...productsOrdered].sort((a, b) => (descendent ? a.cost - b.cost : b.cost - a.cost));
     setProductsOrdered(sortedItems);
   };
+
+  const handleShowHistory = useCallback(() => {
+    setShowPurchased(true);
+    setShowModal(true);
+  }, []);
 
   const handleCoinsAcquisition = useCallback(async (quantity: number) => {
     const [err, data] = await to(addPoints(quantity));
@@ -53,19 +67,19 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
     if (message === 'Points Updated') {
       handleFeedback('added');
       setAvaliableCoins(newPoints);
-      //handleShowModal(false);
     }
   }, []);
 
   useEffect(() => {}, [showFeedback]);
 
   const handleCoinsRedeem = useCallback(
-    async (id: string, price: number) => {
+    async (id: string, price: number, product: Product) => {
       const [err, data] = await to(redeemPoints(id));
       const {message} = JSON.parse(await data.text());
       if (err) return;
       if (message) {
         setAvaliableCoins(availableCoins - price);
+        setPurchased([...purchased, product]);
         handleShowModal(true);
         handleFeedback('redeemed');
       }
@@ -119,7 +133,12 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         <link rel="icon" href="/icons/favicon.ico" />
       </Head>
       <CatalogContainer>
-        <Header name={name} points={availableCoins} handleShowModal={handleShowModal} />
+        <Header
+          handleShowHistory={handleShowHistory}
+          name={name}
+          points={availableCoins}
+          handleShowModal={handleShowModal}
+        />
         <Banner />
         <Navbar
           currentSort={currentSort}
@@ -131,8 +150,10 @@ const HomePage: React.FC<Props> = ({products, profile}) => {
         <Navbar tailIndex={tailIndex} onlyNumbers={true} handleIndexChange={handleIndexChange} />
         {showModal && (
           <Modal
+            purchased={purchased}
             coins={availableCoins}
             showFeedback={showFeedback}
+            showPurchased={showPurchased}
             handleShowModal={handleShowModal}
             handleCoinsAcquisition={handleCoinsAcquisition}
           />

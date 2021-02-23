@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {theme} from 'src/utils/theme';
 
-const {gray80, gray93} = theme.colors;
+const {gray80, gray93, pureOrange} = theme.colors;
 
 export const Container = styled.div`
   min-height: 2rem;
@@ -25,6 +25,10 @@ export const Sidebar = styled.div`
   }
   h3 {
     font-size: 1rem;
+    &:hover {
+      cursor: pointer;
+      color: ${pureOrange};
+    }
   }
 `;
 

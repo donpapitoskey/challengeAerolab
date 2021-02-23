@@ -92,7 +92,7 @@ export const Price = styled.div`
   align-items: center;
   margin: 0 0 0.8rem;
   p {
-    color: ${gray44};
+    color: white;
     font-size: 2rem;
     margin: 0;
   }

@@ -1,14 +1,37 @@
 import React from 'react';
-import {Container, Hotspot, ModalContainer, Button, Subtitle, Title} from './styles';
+import {isMobile} from 'src/utils/constants';
+import {
+  CardContainer,
+  Category,
+  Container,
+  Hotspot,
+  Image,
+  ModalContainer,
+  Name,
+  Button,
+  Subtitle,
+  Title,
+} from './styles';
+import {Product} from 'src/interfaces/product';
 
 interface Props {
   coins: number;
   handleCoinsAcquisition: (quantity: number) => void;
   handleShowModal: (show: boolean) => void;
+  purchased: Product[];
+  showPurchased: boolean;
   showFeedback: string;
 }
 
-const Modal: React.FC<Props> = ({coins, handleCoinsAcquisition, handleShowModal, showFeedback}) => {
+const Modal: React.FC<Props> = ({
+  coins,
+  handleCoinsAcquisition,
+  handleShowModal,
+  purchased,
+  showPurchased,
+  showFeedback,
+}) => {
+  const mobile = isMobile();
   const renderContent = () => {
     switch (showFeedback) {
       case 'redeemed':
@@ -45,10 +68,33 @@ const Modal: React.FC<Props> = ({coins, handleCoinsAcquisition, handleShowModal,
         );
     }
   };
+
+  const renderPurchased = () => {
+    return (
+      <>
+        {mobile && <div onClick={handleShowModal.bind(null, false)}>Close</div>}
+        <Title>History</Title>
+        <p>
+          {`These are the items you 
+          have already purchased.`}
+        </p>
+        {purchased.map((item) => {
+          return (
+            <CardContainer key={item._id}>
+              <Image src={item.img.url} />
+              <hr />
+              <Category>{item.category}</Category>
+              <Name>{item.name}</Name>
+            </CardContainer>
+          );
+        })}
+      </>
+    );
+  };
   return (
     <>
-      <Container>
-        <ModalContainer>{renderContent()}</ModalContainer>
+      <Container className={showPurchased ? 'cards-disposal' : 'other'}>
+        <ModalContainer>{showPurchased ? renderPurchased() : renderContent()}</ModalContainer>
         <Hotspot onClick={handleShowModal.bind(null, false)} />
       </Container>
     </>
